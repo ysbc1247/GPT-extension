@@ -1,19 +1,24 @@
 document.getElementById('generateQuestion').addEventListener('click', () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.scripting.executeScript(
-      tabs[0].id,
-      { code: 'window.getSelection().toString()' },
-      (result) => {
-        const highlightedText = result[0];
+    chrome.tabs.sendMessage(tabs[0].id, { action: 'getSelectedText' }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError);
+        document.getElementById('response').innerText = 'Error fetching selected text.';
+      } else {
+        const highlightedText = response.selectedText;
         if (highlightedText) {
+          // Call the OpenAI API with the highlighted text
           generateQuestion(highlightedText);
         } else {
+          // Display an error message
           document.getElementById('response').innerText = 'No text selected.';
         }
       }
-    );
+    });
   });
 });
+
+
 
 async function generateQuestion(text) {
   const response = await callOpenAI(text);
