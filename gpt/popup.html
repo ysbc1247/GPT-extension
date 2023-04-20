@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OpenAI Text Highlighter</title>
-    <script src="popup.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@openai/openai@0.27.0/dist/openai.browser.umd.min.js"></script>
   </head>
   <body>
-    <h1>OpenAI Text Highlighter</h1>
-    <p>Highlight text on any web page and press the 'q' key to get an answer from the OpenAI API.</p>
+    <h1>OpenAI Question Generator</h1>
+    <button id="generateQuestion">Generate Question</button>
+    <div id="response"></div>
+    <script src="popup.js"></script>
   </body>
 </html>
