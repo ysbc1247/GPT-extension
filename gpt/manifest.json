@@ -1,39 +1,27 @@
 {
     "manifest_version": 3,
-    "name": "OpenAI Text Highlighter",
+    "name": "OpenAI Question Generator",
     "version": "1.0",
-    "description": "Highlight text and get answers from OpenAI API.",
+    "description": "Generate questions using OpenAI API based on highlighted text.",
+    "permissions": ["contextMenus"],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+      }
+    },
     "icons": {
       "16": "icon16.png",
       "48": "icon48.png",
       "128": "icon128.png"
     },
-    "permissions": [
-      "activeTab",
-      "clipboardWrite",
-      "https://api.openai.com/*"
-    ],
     "content_scripts": [
       {
-        "matches": [
-          "<all_urls>"
-        ],
-        "js": [
-          "content.js"
-        ]
+        "matches": ["*://*/*"],
+        "js": ["contentScript.js"]
       }
-    ],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "action": {
-      "default_title": "OpenAI Text Highlighter",
-      "default_icon": {
-        "16": "icon16.png",
-        "48": "icon48.png",
-        "128": "icon128.png"
-      },
-      "default_popup": "popup.html"
-    }
+    ]
   }
   
